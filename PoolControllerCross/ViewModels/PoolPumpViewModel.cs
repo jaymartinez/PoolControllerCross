@@ -16,7 +16,6 @@ namespace PoolControllerCross.ViewModels
             set => SetProperty(ref schedule, value, nameof(EquipmentSchedule));
         }
 
-
         bool isActive;
         public bool IsActive
         {
@@ -25,14 +24,13 @@ namespace PoolControllerCross.ViewModels
         }
 
         public string ActiveAtText => IsActive && Schedule != null ?
-            $"Active at {new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, Schedule.StartHour, Schedule.StartMinute, 0).ToShortTimeString()} " : "";
+            $"Active at {new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, Schedule.StartHour, Schedule.StartMinute, 0).ToShortTimeString()} " : "Off";
 
         public PoolPumpViewModel(PoolSchedule schedule)
         {
             Schedule = schedule;
             Title = "Pool Pump";
             IsActive = schedule.IsActive;
-            OnPropertyChanged(nameof(Title));
         }
     }
 }

@@ -33,10 +33,19 @@ namespace PoolControllerCross.Views
 
         async Task GetScheduleAndSetContext()
         {
+            var model = new PoolAndSpaViewModel();
+            model.IsLoading = true;
+            BindingContext = model;
+
             var sched = await _poolService.GetSchedule();
+
             BindingContext = new PoolAndSpaViewModel()
             {
+                IsLoading = false,
                 PoolModel = new PoolPumpViewModel(sched)
+                {
+                    IsActive = sched.IsActive
+                }
             };
         }
     }
