@@ -1,15 +1,17 @@
-﻿using eHub.Common.Api;
+﻿using Autofac;
+using eHub.Common.Api;
 using eHub.Common.Services;
 using PoolControllerCross.Services;
 using PoolControllerCross.Views;
 using System;
 using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+using Xamarin.Forms.Internals;
 
 namespace PoolControllerCross
 {
     public partial class App : Application
     {
+        public static IContainer Container { get; private set; }
 
         public App()
         {
@@ -17,10 +19,7 @@ namespace PoolControllerCross
 
             DependencyService.Register<MockDataStore>();
 
-
-            DependencyService.Register<WebInterface>();
-            DependencyService.Register<PoolApi>();
-            DependencyService.Register<PoolService>();
+            ConfigureContainer();
 
             MainPage = new AppShell();
         }
@@ -35,6 +34,23 @@ namespace PoolControllerCross
 
         protected override void OnResume()
         {
+        }
+
+        void ConfigureContainer()
+        {
+            var builder = new ContainerBuilder();
+
+            var envInfo = new eHub.Common.Models.EnvironmentInfo[]
+            {
+                new eHub.Common.Models.EnvironmentInfo("staging", "http://192.168.0.17", 9000)
+            };
+            var config = new eHub.Common.Models.Configuration(envInfo, "staging");
+
+            builder.RegisterInstance(config);
+            builder.RegisterInstance(config.Environment);
+            builder.RegisterModule(new PoolControllerModule());
+
+            Container = builder.Build();
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using PoolControllerCross.Models;
+﻿using Autofac;
+using eHub.Common.Services;
+using PoolControllerCross.Models;
 using PoolControllerCross.Services;
 using System;
 using System.Collections.Generic;
@@ -11,6 +13,8 @@ namespace PoolControllerCross.ViewModels
     public class BaseViewModel : INotifyPropertyChanged
     {
         public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
+
+        public IPoolService PoolService => App.Container.Resolve<IPoolService>();
 
         bool isBusy = false;
         public bool IsBusy

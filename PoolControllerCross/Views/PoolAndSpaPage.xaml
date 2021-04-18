@@ -1,13 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:PoolControllerCross.ViewModels"
              x:Class="PoolControllerCross.Views.PoolAndSpaPage">
   <!--Pages can be added as references or inline-->
-    <ContentPage Title="Pool Pump">
+    <ContentPage Title="{Binding PoolModel.Title}">
         <StackLayout Orientation="Vertical" Padding="30" Spacing="20">
             <StackLayout Orientation="Horizontal" Margin="0,10,0,10">
                 <Label Text="Status: " FontSize="Medium" Margin="10,0,0,0" VerticalOptions="Start" />
-                <Label Text="Active at 10:20 AM" FontSize="Small" Margin="5" VerticalOptions="Center" />
+                <Label x:Name="ActiveAtLabel" Text="{Binding PoolModel.ActiveAtText}" FontSize="Small" Margin="5" VerticalOptions="Center" />
             </StackLayout>
         </StackLayout>
     </ContentPage>
