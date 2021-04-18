@@ -10,9 +10,9 @@ using Xamarin.Forms.Xaml;
 namespace PoolControllerCross.Views
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SchedulePage : TabbedPage
+    public partial class PoolAndSpaPage : TabbedPage
     {
-        public SchedulePage()
+        public PoolAndSpaPage()
         {
             InitializeComponent();
         }

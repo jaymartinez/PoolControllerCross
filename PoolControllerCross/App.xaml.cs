@@ -1,4 +1,6 @@
-﻿using PoolControllerCross.Services;
+﻿using eHub.Common.Api;
+using eHub.Common.Services;
+using PoolControllerCross.Services;
 using PoolControllerCross.Views;
 using System;
 using Xamarin.Forms;
@@ -14,6 +16,12 @@ namespace PoolControllerCross
             InitializeComponent();
 
             DependencyService.Register<MockDataStore>();
+
+
+            DependencyService.Register<WebInterface>();
+            DependencyService.Register<PoolApi>();
+            DependencyService.Register<PoolService>();
+
             MainPage = new AppShell();
         }
 
