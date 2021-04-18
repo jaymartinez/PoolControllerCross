@@ -16,21 +16,37 @@ namespace PoolControllerCross.ViewModels
             set => SetProperty(ref schedule, value, nameof(EquipmentSchedule));
         }
 
-        bool isActive;
-        public bool IsActive
+        bool poolIsActive;
+        public bool PoolIsActive
         {
-            get => isActive;
-            set => SetProperty(ref isActive, value, nameof(IsActive));
+            get => poolIsActive;
+            set => SetProperty(ref poolIsActive, value, nameof(PoolIsActive));
         }
 
-        public string ActiveAtText => IsActive && Schedule != null ?
+        bool scheduleIsActive;
+        public bool ScheduleIsActive
+        {
+            get => scheduleIsActive;
+            set => SetProperty(ref scheduleIsActive, value, nameof(ScheduleIsActive));
+        }
+
+        bool includeBooster;
+        public bool IncludeBooster
+        {
+            get => includeBooster;
+            set => SetProperty(ref includeBooster, value, nameof(IncludeBooster));
+        }
+
+
+        public string ActiveAtText => PoolIsActive && Schedule != null ?
             $"Active at {new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, Schedule.StartHour, Schedule.StartMinute, 0).ToShortTimeString()} " : "Off";
 
         public PoolPumpViewModel(PoolSchedule schedule)
         {
             Schedule = schedule;
             Title = "Pool Pump";
-            IsActive = schedule.IsActive;
+            ScheduleIsActive = schedule.IsActive;
+            IncludeBooster = schedule.IncludeBooster;
         }
     }
 }

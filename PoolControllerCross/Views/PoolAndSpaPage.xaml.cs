@@ -1,4 +1,5 @@
 ﻿using Autofac;
+using eHub.Common.Models;
 using eHub.Common.Services;
 using PoolControllerCross.ViewModels;
 using System;
@@ -38,13 +39,17 @@ namespace PoolControllerCross.Views
             BindingContext = model;
 
             var sched = await _poolService.GetSchedule();
+            var status = await _poolService.GetPinStatus(Pin.PoolPump);
+
+            if (sched == null || status == null)
+                return;
 
             BindingContext = new PoolAndSpaViewModel()
             {
                 IsLoading = false,
                 PoolModel = new PoolPumpViewModel(sched)
                 {
-                    IsActive = sched.IsActive
+                    PoolIsActive = status.State == PinState.ON
                 }
             };
         }
