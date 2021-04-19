@@ -53,7 +53,7 @@ namespace PoolControllerCross.ViewModels
 
 
         public string ActiveAtText => PoolIsActive && Schedule != null ?
-            $"Active at {new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, Schedule.StartHour, Schedule.StartMinute, 0).ToShortTimeString()} " : "Off";
+            $"Active at {new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, Schedule.StartHour, Schedule.StartMinute, 0).ToShortTimeString()} " : "Pump is Off";
 
         public PoolPumpViewModel(PoolSchedule schedule)
         {
