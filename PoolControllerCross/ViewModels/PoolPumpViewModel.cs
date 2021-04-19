@@ -13,7 +13,21 @@ namespace PoolControllerCross.ViewModels
         public PoolSchedule Schedule
         {
             get => schedule;
-            set => SetProperty(ref schedule, value, nameof(EquipmentSchedule));
+            set => SetProperty(ref schedule, value, nameof(PoolSchedule));
+        }
+
+        public TimeSpan startTime;
+        public TimeSpan StartTime
+        {
+            get => startTime;
+            set => SetProperty(ref startTime, value, nameof(StartTime));
+        }
+
+        TimeSpan endTime;
+        public TimeSpan EndTime
+        {
+            get => endTime;
+            set => SetProperty(ref endTime, value, nameof(EndTime));
         }
 
         bool poolIsActive;
@@ -47,6 +61,8 @@ namespace PoolControllerCross.ViewModels
             Title = "Pool Pump";
             ScheduleIsActive = schedule.IsActive;
             IncludeBooster = schedule.IncludeBooster;
+            StartTime = new TimeSpan(schedule.StartHour, schedule.StartMinute, 0);
+            EndTime = new TimeSpan(schedule.EndHour, schedule.EndMinute, 0);
         }
     }
 }

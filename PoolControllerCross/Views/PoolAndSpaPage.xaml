@@ -13,11 +13,17 @@
                 <Label x:Name="ActiveAtLabel" Text="{Binding PoolModel.ActiveAtText}" TextColor="Green" FontSize="Small" VerticalOptions="Center" />
                 <Switch Margin="40,0,0,0" IsToggled="{Binding PoolModel.PoolIsActive}" />
             </StackLayout>
+
             <StackLayout Orientation="Horizontal" Margin="0,10,0,10">
                 <CheckBox IsChecked="{Binding PoolModel.ScheduleIsActive}" />
                 <Label Text="Enable/Disable Timer" FontSize="Small" VerticalOptions="Center" />
                 <CheckBox Margin="50,0,0,0" IsChecked="{Binding PoolModel.IncludeBooster}" />
                 <Label Text="Run Booster Pump With Schedule" FontSize="Small" VerticalOptions="Center" />
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" Margin="0,10,0,10">
+                <TimePicker Margin="20" Time="{Binding PoolModel.StartTime}" />
+                <TimePicker Margin="20" Time="{Binding PoolModel.EndTime}" />
             </StackLayout>
 
         </StackLayout>

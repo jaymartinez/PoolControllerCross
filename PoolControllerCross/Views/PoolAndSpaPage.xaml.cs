@@ -43,13 +43,13 @@ namespace PoolControllerCross.Views
 
             if (sched == null || status == null)
                 return;
-
+            
             BindingContext = new PoolAndSpaViewModel()
             {
                 IsLoading = false,
                 PoolModel = new PoolPumpViewModel(sched)
                 {
-                    PoolIsActive = status.State == PinState.ON
+                    PoolIsActive = status.State == PinState.ON,
                 }
             };
         }

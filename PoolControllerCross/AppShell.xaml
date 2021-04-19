@@ -31,8 +31,8 @@
 
     <TabBar>
         <ShellContent Title="Pool &amp; Spa" Icon="ic_pool_black_24dp.png" ContentTemplate="{DataTemplate local:PoolAndSpaPage}" />
+        <ShellContent Title="Lights" Icon="ic_pool_black_24dp.png" ContentTemplate="{DataTemplate local:LightsPage}" />
         <ShellContent Title="About" Icon="icon_about.png" Route="AboutPage" ContentTemplate="{DataTemplate local:AboutPage}" />
-        <ShellContent Title="Browse" Icon="icon_feed.png" ContentTemplate="{DataTemplate local:ItemsPage}" />
     </TabBar>
 
     <!--
