@@ -104,6 +104,7 @@
     </AppxManifest>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="ic_emoji_objects_black_24dp.png" />
     <Content Include="ic_event_note_black_24dp.png" />
     <Content Include="ic_pool_black_24dp.png" />
     <Content Include="Properties\Default.rd.xml" />

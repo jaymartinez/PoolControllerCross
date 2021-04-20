@@ -1,14 +1,15 @@
 ﻿using eHub.Common.Models;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
+using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace PoolControllerCross.ViewModels
 {
-    public class PoolPumpViewModel : BaseViewModel
+    public class PoolPumpViewModel : EquipmentViewModel
     {
-        public PoolPumpViewModel() { }
-
         PoolSchedule schedule;
         public PoolSchedule Schedule
         {
@@ -16,25 +17,18 @@ namespace PoolControllerCross.ViewModels
             set => SetProperty(ref schedule, value, nameof(PoolSchedule));
         }
 
-        public TimeSpan startTime;
-        public TimeSpan StartTime
+        public TimeSpan scheduleStartTime;
+        public TimeSpan ScheduleStartTime
         {
-            get => startTime;
-            set => SetProperty(ref startTime, value, nameof(StartTime));
+            get => scheduleStartTime;
+            set => SetProperty(ref scheduleStartTime, value, nameof(ScheduleStartTime));
         }
 
-        TimeSpan endTime;
-        public TimeSpan EndTime
+        TimeSpan scheduleEndTime;
+        public TimeSpan ScheduleEndTime
         {
-            get => endTime;
-            set => SetProperty(ref endTime, value, nameof(EndTime));
-        }
-
-        bool poolIsActive;
-        public bool PoolIsActive
-        {
-            get => poolIsActive;
-            set => SetProperty(ref poolIsActive, value, nameof(PoolIsActive));
+            get => scheduleEndTime;
+            set => SetProperty(ref scheduleEndTime, value, nameof(ScheduleEndTime));
         }
 
         bool scheduleIsActive;
@@ -51,18 +45,53 @@ namespace PoolControllerCross.ViewModels
             set => SetProperty(ref includeBooster, value, nameof(IncludeBooster));
         }
 
+        public Command LoadPageCommand { get; }
 
-        public string ActiveAtText => PoolIsActive && Schedule != null ?
-            $"Active at {new TimeSpan(Schedule.StartHour, Schedule.StartMinute, 0):HH:mm} " : "Off";
+        public PoolPumpViewModel() 
+        { 
+            LoadPageCommand = new Command(async () => await InitializeViewCommand());
+        }
 
-        public PoolPumpViewModel(PoolSchedule schedule)
+        public PoolPumpViewModel(PoolSchedule schedule, PiPin pin)
+            : base(pin)
         {
-            Schedule = schedule;
-            Title = "Pool Pump";
             ScheduleIsActive = schedule.IsActive;
             IncludeBooster = schedule.IncludeBooster;
-            StartTime = new TimeSpan(schedule.StartHour, schedule.StartMinute, 0);
-            EndTime = new TimeSpan(schedule.EndHour, schedule.EndMinute, 0);
+            Schedule = schedule;
+            ScheduleStartTime = new TimeSpan(schedule.StartHour, schedule.StartMinute, 0);
+            ScheduleEndTime = new TimeSpan(schedule.EndHour, schedule.EndMinute, 0);
+        }
+
+        async Task InitializeViewCommand()
+        {
+            //IsBusy = true;
+
+            //try
+            //{
+            //    var poolSched = await PoolService.GetSchedule();
+            //    var pool = await PoolService.GetPinStatus(Pin.PoolPump);
+
+            //    ScheduleIsActive = schedule.IsActive;
+            //    IncludeBooster = schedule.IncludeBooster;
+            //    Schedule = schedule;
+            //    ScheduleStartTime = new TimeSpan(schedule.StartHour, schedule.StartMinute, 0);
+            //    ScheduleEndTime = new TimeSpan(schedule.EndHour, schedule.EndMinute, 0);
+
+            //    Title = pool.Name;
+            //    if (pool.State == PinState.ON)
+            //    {
+            //        IsActive = true;
+            //        StartTime = new TimeSpan(pool.DateActivated.Hour, pool.DateActivated.Minute, 0);
+            //    }
+            //}
+            //catch (Exception e)
+            //{
+            //    Debug.WriteLine(e.Message);
+            //}
+            //finally
+            //{
+            //    IsBusy = false;
+            //}
         }
     }
 }

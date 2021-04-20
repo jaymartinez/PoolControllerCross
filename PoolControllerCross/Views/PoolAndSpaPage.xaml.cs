@@ -34,23 +34,28 @@ namespace PoolControllerCross.Views
 
         async Task GetScheduleAndSetContext()
         {
-            var model = new PoolAndSpaViewModel();
-            model.IsLoading = true;
-            BindingContext = model;
-
-            var sched = await _poolService.GetSchedule();
-            var status = await _poolService.GetPinStatus(Pin.PoolPump);
-
-            if (sched == null || status == null)
-                return;
-            
             BindingContext = new PoolAndSpaViewModel()
             {
-                IsLoading = false,
-                PoolModel = new PoolPumpViewModel(sched)
-                {
-                    PoolIsActive = status.State == PinState.ON,
-                }
+                IsBusy = true,
+            };
+
+            var statuses = await _poolService.GetAllStatuses();
+            var poolSched = await _poolService.GetSchedule();
+            var pool = statuses.FirstOrDefault(_ => _.PinNumber == Pin.PoolPump);
+            var booster = statuses.FirstOrDefault(_ => _.PinNumber == Pin.BoosterPump);
+            var spaPump = statuses.FirstOrDefault(_ => _.PinNumber == Pin.SpaPump);
+            var heater = statuses.FirstOrDefault(_ => _.PinNumber == Pin.Heater);
+
+            if (poolSched == null || statuses == null)
+                return;
+
+            var poolModel = new PoolPumpViewModel(poolSched, pool);
+            var boosterPumpModel = new BoosterPumpViewModel(booster);
+            var heaterModel = new HeaterViewModel(heater);
+
+            BindingContext = new PoolAndSpaViewModel(poolModel, boosterPumpModel, heaterModel)
+            {
+                IsBusy = false,
             };
         }
     }

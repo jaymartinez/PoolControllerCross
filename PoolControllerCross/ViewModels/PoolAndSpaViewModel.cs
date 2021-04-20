@@ -1,18 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
+﻿
 namespace PoolControllerCross.ViewModels
 {
     public class PoolAndSpaViewModel : BaseViewModel
     {
-        public PoolPumpViewModel PoolModel { get; set; }
+        public PoolPumpViewModel PoolModel { get; }
+        public BoosterPumpViewModel BoosterPumpModel { get; }
+        public HeaterViewModel HeaterModel { get; }
 
-        bool isLoading;
-        public bool IsLoading
+        public PoolAndSpaViewModel() { }
+
+        public PoolAndSpaViewModel(PoolPumpViewModel poolModel, 
+            BoosterPumpViewModel boosterModel, 
+            HeaterViewModel heaterModel)
         {
-            get => isLoading;
-            set => SetProperty(ref isLoading, value, nameof(IsLoading));
+            PoolModel = poolModel;
+            BoosterPumpModel = boosterModel;
+            HeaterModel = heaterModel;
         }
+
     }
 }

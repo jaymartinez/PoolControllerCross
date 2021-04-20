@@ -7,43 +7,65 @@
 
     <ContentPage Title="{Binding PoolModel.Title}">
         <StackLayout Orientation="Vertical" Padding="10,0,0,0" Spacing="10">
-            <ActivityIndicator x:Name="PoolPumpActivityIndicator" IsRunning="{Binding IsLoading}"/>
-            <Label Text="Pump Control" FontSize="Medium" FontAttributes="Bold" />
+            <ActivityIndicator x:Name="PoolPumpActivityIndicator" IsRunning="{Binding PoolModel.IsBusy}"/>
+            <Label Text="Pump Control" FontSize="Large" FontAttributes="Bold" />
             <StackLayout Orientation="Horizontal">
-                <Label x:Name="ActiveAtLabel" Text="{Binding PoolModel.ActiveAtText}" 
+                <Label Text="{Binding PoolModel.ActiveAtText}" 
                        TextColor="Green" FontSize="Small" VerticalOptions="Center" />
-                <Switch Margin="40,0,0,0" IsToggled="{Binding PoolModel.PoolIsActive}" VerticalOptions="Center" />
+                <Switch Margin="40,0,0,0" IsToggled="{Binding PoolModel.IsActive}" VerticalOptions="Center" />
             </StackLayout>
 
 
             <StackLayout Orientation="Horizontal" Margin="0,20,0,0">
                 <Label FontAttributes="Bold" FontSize="Large" Text="Pump Schedule"/>
-                <CheckBox Margin="40,0,0,0" IsChecked="{Binding PoolModel.ScheduleIsActive}" />
-                <Label VerticalOptions="Center" FontAttributes="Italic" FontSize="Small" Padding="4,0,0,0" Text="Enable/Disable Schedule"/>
-                <!--<Switch Margin="40,0,0,0" IsToggled="{Binding PoolModel.ScheduleIsActive}" VerticalOptions="End" />-->
+                <CheckBox Margin="40,0,0,0" VerticalOptions="Center" IsChecked="{Binding PoolModel.ScheduleIsActive}" />
+                <Label FontAttributes="Italic" VerticalOptions="Center" FontSize="Small" Padding="4,0,0,0" Text="Enable/Disable Schedule"/>
             </StackLayout>
 
             
             <StackLayout Orientation="Horizontal">
                 <StackLayout Orientation="Vertical" Padding="0,20,0,10">
                     <Label Text="Start Time" FontSize="Medium" VerticalOptions="Center" />
-                    <TimePicker Time="{Binding PoolModel.StartTime}" />
+                    <TimePicker Time="{Binding PoolModel.ScheduleStartTime}" />
                 </StackLayout>
                 <StackLayout Orientation="Vertical" Padding="50,20,0,10">
                     <Label Text="End Time" FontSize="Medium" VerticalOptions="Center" />
-                    <TimePicker Time="{Binding PoolModel.EndTime}" />
+                    <TimePicker Time="{Binding PoolModel.ScheduleEndTime}" />
                 </StackLayout>
             </StackLayout>
 
             <StackLayout Orientation="Horizontal" Margin="0,2,0,0">
                 <CheckBox IsChecked="{Binding PoolModel.IncludeBooster}" />
-                <Label Text="Run Booster Pump With Schedule" FontSize="Small" VerticalOptions="Center" />
+                <Label Text="Run Booster Pump With Schedule" FontAttributes="Italic" FontSize="Small" VerticalOptions="Center" />
             </StackLayout>
 
         </StackLayout>
     </ContentPage>
 
-  <ContentPage Title="Spa Pump" />
-  <ContentPage Title="Booster Pump" />
-  <ContentPage Title="Heater" />
+
+  <ContentPage Title="Booster Pump">
+    <StackLayout Orientation="Vertical" Padding="10,0,0,0" Spacing="10">
+        <ActivityIndicator IsRunning="{Binding BoosterPumpModel.IsBusy}"/>
+        <Label Text="Pump Control" FontSize="Large" FontAttributes="Bold" />
+        <StackLayout Orientation="Horizontal">
+            <Label Text="{Binding BoosterPumpModel.ActiveAtText}" 
+                TextColor="Green" FontSize="Small" VerticalOptions="Center" />
+            <Switch Margin="40,0,0,0" IsToggled="{Binding BoosterPumpModel.IsActive}" VerticalOptions="Center" />
+        </StackLayout>
+    </StackLayout>
+  </ContentPage>
+
+    <ContentPage Title="Heater">
+        <StackLayout Orientation="Vertical" Padding="10,0,0,0" Spacing="10">
+            <ActivityIndicator IsRunning="{Binding HeaterModel.IsBusy}"/>
+            <Label Text="Heater Control" FontSize="Large" FontAttributes="Bold" />
+            <StackLayout Orientation="Horizontal">
+                <Label Text="{Binding HeaterModel.ActiveAtText}" 
+                TextColor="Green" FontSize="Small" VerticalOptions="Center" />
+                <Switch Margin="40,0,0,0" IsToggled="{Binding HeaterModel.IsActive}" VerticalOptions="Center" />
+            </StackLayout>
+        </StackLayout>
+    </ContentPage>
+
+    <ContentPage Title="Spa Pump" />
 </TabbedPage>
