@@ -47,11 +47,6 @@ namespace PoolControllerCross.ViewModels
 
         public Command LoadPageCommand { get; }
 
-        public PoolPumpViewModel() 
-        { 
-            LoadPageCommand = new Command(async () => await InitializeViewCommand());
-        }
-
         public PoolPumpViewModel(PoolSchedule schedule, PiPin pin)
             : base(pin)
         {
@@ -60,38 +55,6 @@ namespace PoolControllerCross.ViewModels
             Schedule = schedule;
             ScheduleStartTime = new TimeSpan(schedule.StartHour, schedule.StartMinute, 0);
             ScheduleEndTime = new TimeSpan(schedule.EndHour, schedule.EndMinute, 0);
-        }
-
-        async Task InitializeViewCommand()
-        {
-            //IsBusy = true;
-
-            //try
-            //{
-            //    var poolSched = await PoolService.GetSchedule();
-            //    var pool = await PoolService.GetPinStatus(Pin.PoolPump);
-
-            //    ScheduleIsActive = schedule.IsActive;
-            //    IncludeBooster = schedule.IncludeBooster;
-            //    Schedule = schedule;
-            //    ScheduleStartTime = new TimeSpan(schedule.StartHour, schedule.StartMinute, 0);
-            //    ScheduleEndTime = new TimeSpan(schedule.EndHour, schedule.EndMinute, 0);
-
-            //    Title = pool.Name;
-            //    if (pool.State == PinState.ON)
-            //    {
-            //        IsActive = true;
-            //        StartTime = new TimeSpan(pool.DateActivated.Hour, pool.DateActivated.Minute, 0);
-            //    }
-            //}
-            //catch (Exception e)
-            //{
-            //    Debug.WriteLine(e.Message);
-            //}
-            //finally
-            //{
-            //    IsBusy = false;
-            //}
         }
     }
 }

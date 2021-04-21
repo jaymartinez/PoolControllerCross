@@ -5,7 +5,6 @@ namespace PoolControllerCross.ViewModels
 {
     public class EquipmentViewModel : BaseViewModel
     {
-        public EquipmentViewModel() { }
         public EquipmentViewModel(PiPin pin)
         {
             Title = pin.Name;
@@ -38,7 +37,7 @@ namespace PoolControllerCross.ViewModels
         }
 
         public string ActiveAtText => IsActive && startTime.HasValue ?
-            $"Active at {new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day, startTime.Value.Hours, startTime.Value.Minutes, 0).ToShortTimeString()}" : "Off";
+            $"Active at {startTime.Value.ToString(@"%h\:mm")}" : "Off";
 
     }
 }
