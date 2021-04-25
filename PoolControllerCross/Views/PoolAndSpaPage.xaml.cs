@@ -24,34 +24,50 @@ namespace PoolControllerCross.Views
 
             _poolService = App.Container.Resolve<IPoolService>();
 
+            var ctx = new PoolAndSpaViewModel();
+            BindingContext = new PoolAndSpaViewModel()
+            {
+                IsBusy = true,
+            };
+
+            ToolbarItems.Add(new ToolbarItem("Refresh", "ic_refresh_white_24dp.png", async () =>
+            {
+                await Refresh();
+            }));
+
             GetSchedule();
         }
 
         async void GetSchedule()
         {
-            await GetScheduleAndSetContext();
+            await Refresh();
         }
 
-        async Task GetScheduleAndSetContext()
+        async Task Refresh()
         {
             BindingContext = new PoolAndSpaViewModel()
             {
                 IsBusy = true,
             };
 
-            var statuses = await _poolService.GetAllStatuses();
-            var poolSched = await _poolService.GetSchedule();
+            var (statuses, poolSched, glSched, plSched) = await Task.Run(async () =>
+            {
+                var status = (await _poolService.GetAllStatuses()).ToList();
+                var sched = await _poolService.GetSchedule();
+                var groundLightSched = await _poolService.GetGroundLightSchedule();
+                var poolLightSched = await _poolService.GetPoolLightSchedule();
+
+                return (status, sched, groundLightSched, poolLightSched);
+            });
+
             var pool = statuses.FirstOrDefault(_ => _.PinNumber == Pin.PoolPump);
             var booster = statuses.FirstOrDefault(_ => _.PinNumber == Pin.BoosterPump);
             var spaPump = statuses.FirstOrDefault(_ => _.PinNumber == Pin.SpaPump);
             var heater = statuses.FirstOrDefault(_ => _.PinNumber == Pin.Heater);
 
-            if (poolSched == null || statuses == null)
-                return;
-
             var poolModel = new PoolPumpViewModel(poolSched, pool);
-            var boosterPumpModel = new BoosterPumpViewModel(booster);
-            var heaterModel = new HeaterViewModel(heater);
+            var boosterPumpModel = new EquipmentViewModel(booster);
+            var heaterModel = new EquipmentViewModel(heater);
 
             BindingContext = new PoolAndSpaViewModel(poolModel, boosterPumpModel, heaterModel)
             {

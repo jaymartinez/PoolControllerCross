@@ -14,7 +14,7 @@ namespace PoolControllerCross.ViewModels
         public PoolSchedule Schedule
         {
             get => schedule;
-            set => SetProperty(ref schedule, value, nameof(PoolSchedule));
+            set => SetProperty(ref schedule, value, nameof(Schedule));
         }
 
         public TimeSpan scheduleStartTime;
@@ -44,8 +44,6 @@ namespace PoolControllerCross.ViewModels
             get => includeBooster;
             set => SetProperty(ref includeBooster, value, nameof(IncludeBooster));
         }
-
-        public Command LoadPageCommand { get; }
 
         public PoolPumpViewModel(PoolSchedule schedule, PiPin pin)
             : base(pin)

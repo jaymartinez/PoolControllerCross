@@ -1,22 +1,28 @@
 ﻿
+using eHub.Common.Models;
+using System.Linq;
+using System.Threading.Tasks;
+using Xamarin.Forms;
+
 namespace PoolControllerCross.ViewModels
 {
     public class PoolAndSpaViewModel : BaseViewModel
     {
-        public PoolPumpViewModel PoolModel { get; }
-        public BoosterPumpViewModel BoosterPumpModel { get; }
-        public HeaterViewModel HeaterModel { get; }
+        public PoolPumpViewModel PoolModel { get; private set; }
+        public EquipmentViewModel BoosterPumpModel { get; private set; }
+        public EquipmentViewModel HeaterModel { get; private set; }
 
-        public PoolAndSpaViewModel() { }
+        public PoolAndSpaViewModel() 
+        { 
+        }
 
         public PoolAndSpaViewModel(PoolPumpViewModel poolModel, 
-            BoosterPumpViewModel boosterModel, 
-            HeaterViewModel heaterModel)
+            EquipmentViewModel boosterModel, 
+            EquipmentViewModel heaterModel)
         {
             PoolModel = poolModel;
             BoosterPumpModel = boosterModel;
             HeaterModel = heaterModel;
         }
-
     }
 }

@@ -30,13 +30,13 @@
                 </StackLayout>
             </StackLayout>
 
-            <StackLayout Orientation="Horizontal" Margin="0,2,0,0">
-                <CheckBox VerticalOptions="Center" IsChecked="{Binding PoolModel.ScheduleIsActive}" />
+            <StackLayout Orientation="Horizontal" Padding="0,10">
+                <Switch IsToggled="{Binding PoolModel.ScheduleIsActive}" ThumbColor="Teal" />
                 <Label FontAttributes="Italic" VerticalOptions="Center" FontSize="Small" Text="Enable/Disable"/>
             </StackLayout>
 
-            <StackLayout Orientation="Horizontal" Margin="0,2,0,0">
-                <CheckBox IsChecked="{Binding PoolModel.IncludeBooster}" />
+            <StackLayout Orientation="Horizontal">
+                <Switch IsToggled="{Binding PoolModel.IncludeBooster}" ThumbColor="Teal" />
                 <Label Text="Run Booster Pump With Schedule" FontAttributes="Italic" FontSize="Small" VerticalOptions="Center" />
             </StackLayout>
 
