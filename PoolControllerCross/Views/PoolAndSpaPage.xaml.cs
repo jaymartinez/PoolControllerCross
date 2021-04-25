@@ -35,10 +35,10 @@ namespace PoolControllerCross.Views
                 await Refresh();
             }));
 
-            GetSchedule();
+            InitAsync();
         }
 
-        async void GetSchedule()
+        async void InitAsync()
         {
             await Refresh();
         }

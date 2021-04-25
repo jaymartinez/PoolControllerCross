@@ -1,5 +1,6 @@
 ﻿using Autofac;
 using eHub.Common.Services;
+using PoolControllerCross.Helpers;
 using PoolControllerCross.Models;
 using PoolControllerCross.Services;
 using System;
@@ -15,6 +16,7 @@ namespace PoolControllerCross.ViewModels
         public IDataStore<Item> DataStore => DependencyService.Get<IDataStore<Item>>();
 
         public IPoolService PoolService => App.Container.Resolve<IPoolService>();
+        public IDialogService DialogService => App.Container.Resolve<IDialogService>();
 
         bool isBusy = false;
         public bool IsBusy

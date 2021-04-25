@@ -2,6 +2,7 @@
 using eHub.Common.Api;
 using eHub.Common.Models;
 using eHub.Common.Services;
+using PoolControllerCross.Helpers;
 
 namespace PoolControllerCross
 {
@@ -10,6 +11,8 @@ namespace PoolControllerCross
         protected override void Load(ContainerBuilder builder)
         {
             base.Load(builder);
+
+            builder.RegisterType<DialogService>().As<IDialogService>();
 
             builder.Register(ctx =>
             {
@@ -22,6 +25,7 @@ namespace PoolControllerCross
                 IWebInterface webApi = ctx.Resolve<IWebInterface>();
                 return new PoolService(webApi);
             }).As<IPoolService>();
+
         }
     }
 }
