@@ -1,12 +1,155 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+<TabbedPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:PoolControllerCross.ViewModels"
              x:Class="PoolControllerCross.Views.LightsPage">
-    <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+    <!--Pages can be added as references or inline-->
+
+    <ContentPage Title="{Binding Title}">
+        <StackLayout Orientation="Vertical" Padding="10" Spacing="2">
+            <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" />
+            <StackLayout Orientation="Horizontal" Padding="0,4">
+                <Label Text="Status: " FontSize="Medium" VerticalOptions="Center" />
+                <Label Text="{Binding PoolLightModel.ActiveAtText}" TextColor="{Binding PoolLightModel.StatusTextColor}" 
+                       FontSize="Medium" VerticalOptions="Center" />
+            </StackLayout>
+
+            <Label Text="Light Control" FontSize="Large" FontAttributes="Bold" />
+
+            <StackLayout Orientation="Vertical">
+                <Button Text="On" 
+                        Command="{Binding PoolLightModel.OnCommand}" 
+                        CommandParameter="{Binding PoolLightModel.EquipmentPin}" 
+                        FontSize="Large" 
+                        BackgroundColor="{Binding PoolLightModel.OnButtonBackgroundColor}" 
+                        BorderColor="LightGreen" BorderWidth="1" 
+                        TextColor="{Binding PoolLightModel.OnButtonTextColor}" />
+                <Button Text="Off" 
+                        Command="{Binding PoolLightModel.OffCommand}" 
+                        CommandParameter="{Binding PoolLightModel.EquipmentPin}" 
+                        FontSize="Large" 
+                        BorderColor="DarkRed" BorderWidth="1"
+                        TextColor="{Binding PoolLightModel.OffButtonTextColor}"
+                        BackgroundColor="{Binding PoolLightModel.OffButtonBackgroundColor}" />
+            </StackLayout>
+
+            <Label TextDecorations="Underline" Margin="0,30,0,0" FontAttributes="Bold" FontSize="Large" Text="Schedule"/>
+
+            <StackLayout Orientation="Horizontal">
+                <StackLayout Orientation="Vertical" Padding="0,20,0,10">
+                    <Label Text="Start Time" FontSize="Medium" VerticalOptions="Center"  />
+                    <TimePicker Time="{Binding PoolLightModel.ScheduleStartTime}" />
+                </StackLayout>
+                <StackLayout Orientation="Vertical" Padding="50,20,0,10">
+                    <Label Text="End Time" FontSize="Medium" VerticalOptions="Center" />
+                    <TimePicker Time="{Binding PoolLightModel.ScheduleEndTime}" />
+                </StackLayout>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" Padding="0,10">
+                <CheckBox IsChecked="{Binding PoolLightModel.ScheduleIsActive}" Color="Teal" />
+                <Label FontAttributes="Italic" VerticalOptions="Center" FontSize="Small" Text="Enable/Disable"/>
+            </StackLayout>
+
         </StackLayout>
-    </ContentPage.Content>
-</ContentPage>
+    </ContentPage>
+
+
+    <ContentPage Title="{Binding Title}">
+        <StackLayout Orientation="Vertical" Padding="10" Spacing="2">
+            <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" />
+            <StackLayout Orientation="Horizontal" Padding="0,4">
+                <Label Text="Status: " FontSize="Medium" VerticalOptions="Center" />
+                <Label Text="{Binding SpaLightModel.ActiveAtText}" TextColor="{Binding SpaLightModel.StatusTextColor}" 
+                       FontSize="Medium" VerticalOptions="Center" />
+            </StackLayout>
+
+            <Label Text="Light Control" FontSize="Large" FontAttributes="Bold" />
+
+            <StackLayout Orientation="Vertical">
+                <Button Text="On" 
+                        Command="{Binding SpaLightModel.OnCommand}" 
+                        CommandParameter="{Binding SpaLightModel.EquipmentPin}" 
+                        FontSize="Large" 
+                        BackgroundColor="{Binding SpaLightModel.OnButtonBackgroundColor}" 
+                        BorderColor="LightGreen" BorderWidth="1" 
+                        TextColor="{Binding SpaLightModel.OnButtonTextColor}" />
+                <Button Text="Off" 
+                        Command="{Binding SpaLightModel.OffCommand}" 
+                        CommandParameter="{Binding SpaLightModel.EquipmentPin}" 
+                        FontSize="Large" 
+                        BorderColor="DarkRed" BorderWidth="1"
+                        TextColor="{Binding SpaLightModel.OffButtonTextColor}"
+                        BackgroundColor="{Binding SpaLightModel.OffButtonBackgroundColor}" />
+            </StackLayout>
+
+            <Label TextDecorations="Underline" Margin="0,30,0,0" FontAttributes="Bold" FontSize="Large" Text="Schedule"/>
+
+            <StackLayout Orientation="Horizontal">
+                <StackLayout Orientation="Vertical" Padding="0,20,0,10">
+                    <Label Text="Start Time" FontSize="Medium" VerticalOptions="Center"  />
+                    <TimePicker Time="{Binding SpaLightModel.ScheduleStartTime}" />
+                </StackLayout>
+                <StackLayout Orientation="Vertical" Padding="50,20,0,10">
+                    <Label Text="End Time" FontSize="Medium" VerticalOptions="Center" />
+                    <TimePicker Time="{Binding SpaLightModel.ScheduleEndTime}" />
+                </StackLayout>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" Padding="0,10">
+                <CheckBox IsChecked="{Binding SpaLightModel.ScheduleIsActive}" Color="Teal" />
+                <Label FontAttributes="Italic" VerticalOptions="Center" FontSize="Small" Text="Enable/Disable"/>
+            </StackLayout>
+
+        </StackLayout>
+    </ContentPage>
+
+    <ContentPage Title="Heater">
+        <StackLayout Orientation="Vertical" Padding="10" Spacing="2">
+            <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" />
+            <StackLayout Orientation="Horizontal" Padding="0,4">
+                <Label Text="Status: " FontSize="Medium" VerticalOptions="Center" />
+                <Label Text="{Binding GroundLightsModel.ActiveAtText}" TextColor="{Binding GroundLightsModel.StatusTextColor}" 
+                       FontSize="Medium" VerticalOptions="Center" />
+            </StackLayout>
+
+            <Label Text="Light Control" FontSize="Large" FontAttributes="Bold" />
+
+            <StackLayout Orientation="Vertical">
+                <Button Text="On" 
+                        Command="{Binding GroundLightsModel.OnCommand}" 
+                        CommandParameter="{Binding GroundLightsModel.EquipmentPin}" 
+                        FontSize="Large" 
+                        BackgroundColor="{Binding GroundLightsModel.OnButtonBackgroundColor}" 
+                        BorderColor="LightGreen" BorderWidth="1" 
+                        TextColor="{Binding GroundLightsModel.OnButtonTextColor}" />
+                <Button Text="Off" 
+                        Command="{Binding GroundLightsModel.OffCommand}" 
+                        CommandParameter="{Binding GroundLightsModel.EquipmentPin}" 
+                        FontSize="Large" 
+                        BorderColor="DarkRed" BorderWidth="1"
+                        TextColor="{Binding GroundLightsModel.OffButtonTextColor}"
+                        BackgroundColor="{Binding GroundLightsModel.OffButtonBackgroundColor}" />
+            </StackLayout>
+
+            <Label TextDecorations="Underline" Margin="0,30,0,0" FontAttributes="Bold" FontSize="Large" Text="Schedule"/>
+
+            <StackLayout Orientation="Horizontal">
+                <StackLayout Orientation="Vertical" Padding="0,20,0,10">
+                    <Label Text="Start Time" FontSize="Medium" VerticalOptions="Center"  />
+                    <TimePicker Time="{Binding GroundLightsModel.ScheduleStartTime}" />
+                </StackLayout>
+                <StackLayout Orientation="Vertical" Padding="50,20,0,10">
+                    <Label Text="End Time" FontSize="Medium" VerticalOptions="Center" />
+                    <TimePicker Time="{Binding GroundLightsModel.ScheduleEndTime}" />
+                </StackLayout>
+            </StackLayout>
+
+            <StackLayout Orientation="Horizontal" Padding="0,10">
+                <CheckBox IsChecked="{Binding GroundLightsModel.ScheduleIsActive}" Color="Teal" />
+                <Label FontAttributes="Italic" VerticalOptions="Center" FontSize="Small" Text="Enable/Disable"/>
+            </StackLayout>
+
+        </StackLayout>
+    </ContentPage>
+</TabbedPage>

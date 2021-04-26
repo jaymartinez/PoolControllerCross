@@ -9,8 +9,9 @@
         <StackLayout Orientation="Vertical" Padding="10" Spacing="2">
             <ActivityIndicator x:Name="PoolPumpActivityIndicator" IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" />
             <StackLayout Orientation="Horizontal" Padding="0,4">
-                <Label Text="Status: " FontSize="Large" VerticalOptions="Center" />
-                <Label Text="{Binding PoolModel.ActiveAtText}" TextColor="Green" FontSize="Large" VerticalOptions="Center" />
+                <Label Text="Status: " FontSize="Medium" VerticalOptions="Center" />
+                <Label Text="{Binding PoolModel.ActiveAtText}" TextColor="{Binding PoolModel.StatusTextColor}" 
+                       FontSize="Medium" VerticalOptions="Center" />
             </StackLayout>
 
             <Label Text="Pump Control" FontSize="Large" FontAttributes="Bold" />
@@ -32,7 +33,7 @@
                         BackgroundColor="{Binding PoolModel.OffButtonBackgroundColor}" />
             </StackLayout>
 
-            <Label TextDecorations="Underline" Margin="0,20,0,0" FontAttributes="Bold" FontSize="Large" Text="Schedule"/>
+            <Label TextDecorations="Underline" Margin="0,30,0,0" FontAttributes="Bold" FontSize="Large" Text="Schedule"/>
             
             <StackLayout Orientation="Horizontal">
                 <StackLayout Orientation="Vertical" Padding="0,20,0,10">
@@ -52,7 +53,8 @@
 
             <StackLayout Orientation="Horizontal">
                 <CheckBox IsChecked="{Binding PoolModel.IncludeBooster}" Color="Teal" />
-                <Label Text="Run Booster Pump With Schedule" FontAttributes="Italic" FontSize="Small" VerticalOptions="Center" />
+                <Label Text="Run Booster Pump With Schedule" FontAttributes="Italic" 
+                       FontSize="Small" VerticalOptions="Center" />
             </StackLayout>
 
         </StackLayout>
@@ -60,11 +62,12 @@
 
 
   <ContentPage Title="Booster Pump">
-    <StackLayout Orientation="Vertical" Padding="10,10,0,0" Spacing="5">
+    <StackLayout Orientation="Vertical" Padding="10" Spacing="2">
         <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" />
         <StackLayout Orientation="Horizontal" Padding="0,4">
-            <Label Text="Status: " FontSize="Large" VerticalOptions="Center" />
-            <Label Text="{Binding BoosterPumpModel.ActiveAtText}" TextColor="Green" FontSize="Large" VerticalOptions="Center" />
+            <Label Text="Status: " FontSize="Medium" VerticalOptions="Center" />
+            <Label Text="{Binding BoosterPumpModel.ActiveAtText}" 
+               TextColor="{Binding BoosterPumpModel.StatusTextColor}" FontSize="Medium" VerticalOptions="Center" />
         </StackLayout>
 
         <Label Text="Pump Control" FontSize="Large" FontAttributes="Bold" />
@@ -89,11 +92,12 @@
   </ContentPage>
 
     <ContentPage Title="Heater">
-        <StackLayout Orientation="Vertical" Padding="10,10,0,0" Spacing="5">
+        <StackLayout Orientation="Vertical" Padding="10" Spacing="2">
             <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" />
             <StackLayout Orientation="Horizontal" Padding="0,4">
-                <Label Text="Status: " FontSize="Large" VerticalOptions="Center" />
-                <Label Text="{Binding HeaterModel.ActiveAtText}" TextColor="Green" FontSize="Large" VerticalOptions="Center" />
+                <Label Text="Status: " FontSize="Medium" VerticalOptions="Center" />
+                <Label Text="{Binding HeaterModel.ActiveAtText}" FontSize="Medium" 
+                   TextColor="{Binding HeaterModel.StatusTextColor}" VerticalOptions="Center" />
             </StackLayout>
 
             <Label Text="Heater Control" FontSize="Large" FontAttributes="Bold" />
@@ -117,11 +121,11 @@
     </ContentPage>
 
     <ContentPage Title="Spa Pump">
-        <StackLayout Orientation="Vertical" Padding="10,0,0,0" Spacing="5">
+        <StackLayout Orientation="Vertical" Padding="10" Spacing="2">
             <ActivityIndicator IsRunning="{Binding IsBusy}" />
             <StackLayout Orientation="Horizontal" >
-                <Label Text="Status: " FontSize="Small" VerticalOptions="Center" />
-                <Label Text="NEED NEW PUMP!" TextColor="Red" FontSize="Small" VerticalOptions="Center" />
+                <Label Text="Status: " FontSize="Medium" VerticalOptions="Center" />
+                <Label Text="NEED NEW PUMP!" TextColor="Red" FontSize="Medium" VerticalOptions="Center" />
             </StackLayout>
         </StackLayout>
     </ContentPage>

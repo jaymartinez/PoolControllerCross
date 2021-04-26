@@ -18,6 +18,7 @@ namespace PoolControllerCross.ViewModels
 
         public Color OffButtonBackgroundColor => IsActive ? Color.Transparent : Color.DarkRed;
         public Color OffButtonTextColor => IsActive ? Color.DarkRed: Color.White;
+        public Color StatusTextColor => IsActive ? Color.Green: Color.DarkRed;
 
         public EquipmentViewModel(PiPin pin)
         {
@@ -47,7 +48,7 @@ namespace PoolControllerCross.ViewModels
                 return;
             }
 
-            await ToggleEquipment(pin, true);
+            await ToggleEquipment(pin);
         }
 
         async Task TurnEquipmentOff(object obj)
@@ -62,15 +63,13 @@ namespace PoolControllerCross.ViewModels
                 return;
             }
 
-            await ToggleEquipment(pin, false);
+            await ToggleEquipment(pin);
         }
-
-        public Command ToggleCommand { get; }
 
         public Command OnCommand { get; }
         public Command OffCommand { get; }
 
-        async Task ToggleEquipment(PiPin pin, bool isTurningOn)
+        async Task ToggleEquipment(PiPin pin)
         {
             var allStatuses = await Task.Run(async () =>
             {
@@ -114,29 +113,25 @@ namespace PoolControllerCross.ViewModels
                 }
             }
 
-
-            //var confirm = DialogService.ShowConfirmation("Are you sure you want to ")
-
             if (proceed)
             {
+                pin.State = pin.State == PinState.ON ? PinState.OFF : PinState.ON; 
                 var result = new PiPin()
                 {
                     DateActivated = DateTime.Now,
                     DateDeactivated = DateTime.Now,
-                    State = PinState.ON,
-                    PinNumber = Pin.BoosterPump
+                    State = pin.State,
+                    PinNumber = pin.PinNumber
                 };
                 //var result = await PoolService.Toggle(pin.PinNumber);
                 if (result.State == PinState.ON)
                 {
                     StartTime = new TimeSpan(result.DateActivated.Hour, result.DateActivated.Minute, 0);
-                    State = PinState.ON;
                     IsActive = true;
                 }
                 else
                 {
                     EndTime = new TimeSpan(result.DateDeactivated.Hour, result.DateDeactivated.Minute, 0);
-                    State = PinState.OFF;
                     IsActive = false;
                 }
             }
@@ -161,6 +156,7 @@ namespace PoolControllerCross.ViewModels
                 OnPropertyChanged(nameof(OnButtonTextColor));
                 OnPropertyChanged(nameof(OffButtonBackgroundColor));
                 OnPropertyChanged(nameof(OffButtonTextColor));
+                OnPropertyChanged(nameof(StatusTextColor));
             }
         }
 

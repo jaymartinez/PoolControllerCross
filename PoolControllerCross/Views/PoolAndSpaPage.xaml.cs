@@ -1,13 +1,11 @@
 ﻿using Autofac;
 using eHub.Common.Models;
 using eHub.Common.Services;
+using PoolControllerCross.Helpers;
 using PoolControllerCross.ViewModels;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -17,12 +15,14 @@ namespace PoolControllerCross.Views
     public partial class PoolAndSpaPage : TabbedPage
     {
         readonly IPoolService _poolService;
+        readonly IDialogService _dialogService;
 
         public PoolAndSpaPage()
         {
             InitializeComponent();
 
             _poolService = App.Container.Resolve<IPoolService>();
+            _dialogService = App.Container.Resolve<IDialogService>();
 
             var ctx = new PoolAndSpaViewModel();
             BindingContext = new PoolAndSpaViewModel()
@@ -30,12 +30,38 @@ namespace PoolControllerCross.Views
                 IsBusy = true,
             };
 
-            ToolbarItems.Add(new ToolbarItem("Refresh", "ic_refresh_white_24dp.png", async () =>
+            ToolbarItems.Add(new ToolbarItem("Refresh", "ic_refresh_white_48dp.png", async () =>
             {
                 await Refresh();
             }));
+            ToolbarItems.Add(new ToolbarItem("Save", "ic_save_white_48dp.png", async () =>
+            {
+                await Save();
+            }));
 
             InitAsync();
+        }
+
+        async Task Save()
+        {
+            var vm = BindingContext as PoolAndSpaViewModel;
+            vm.IsBusy = true;
+
+            var savedSchedule = await Task.Run(async () =>
+            {
+                return await _poolService.SetSchedule(
+                    new DateTime(vm.PoolModel.ScheduleStartTime.Ticks),
+                    new DateTime(vm.PoolModel.ScheduleEndTime.Ticks),
+                    vm.PoolModel.ScheduleIsActive,
+                    vm.PoolModel.IncludeBooster);
+            });
+
+            if (savedSchedule != null)
+            {
+                await _dialogService.ShowAlert("Schedule data updated", "");
+            }
+
+            vm.IsBusy = false;
         }
 
         async void InitAsync()
