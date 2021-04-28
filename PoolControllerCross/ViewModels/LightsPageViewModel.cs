@@ -7,9 +7,20 @@ namespace PoolControllerCross.ViewModels
 {
     public class LightsPageViewModel : BaseViewModel
     {
-        public EquipmentViewModel PoolLightModel { get; }
-        public EquipmentViewModel GroundLightsModel { get; }
-        public EquipmentViewModel SpaLightModel { get; }
+        public ScheduleViewModel PoolLightModel { get; }
+        public ScheduleViewModel GroundLightsModel { get; }
+        public ScheduleViewModel SpaLightModel { get; }
 
+        public LightsPageViewModel() { }
+
+        public LightsPageViewModel(
+            ScheduleViewModel poolLightModel,
+            ScheduleViewModel groundLightsModel,
+            ScheduleViewModel spaLightModel)
+        {
+            PoolLightModel = poolLightModel;
+            GroundLightsModel = groundLightsModel;
+            SpaLightModel = spaLightModel;
+        }
     }
 }

@@ -61,7 +61,7 @@
     </ContentPage>
 
 
-  <ContentPage Title="Booster Pump">
+  <ContentPage Title="{Binding BoosterPumpModel.Title}">
     <StackLayout Orientation="Vertical" Padding="10" Spacing="2">
         <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" />
         <StackLayout Orientation="Horizontal" Padding="0,4">
@@ -91,7 +91,7 @@
     </StackLayout>
   </ContentPage>
 
-    <ContentPage Title="Heater">
+    <ContentPage Title="{Binding HeaterModel.Title}">
         <StackLayout Orientation="Vertical" Padding="10" Spacing="2">
             <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" />
             <StackLayout Orientation="Horizontal" Padding="0,4">

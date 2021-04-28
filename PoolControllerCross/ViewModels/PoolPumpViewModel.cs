@@ -8,36 +8,8 @@ using Xamarin.Forms;
 
 namespace PoolControllerCross.ViewModels
 {
-    public class PoolPumpViewModel : EquipmentViewModel
+    public class PoolPumpViewModel : ScheduleViewModel
     {
-        PoolSchedule schedule;
-        public PoolSchedule Schedule
-        {
-            get => schedule;
-            set => SetProperty(ref schedule, value, nameof(Schedule));
-        }
-
-        public TimeSpan scheduleStartTime;
-        public TimeSpan ScheduleStartTime
-        {
-            get => scheduleStartTime;
-            set => SetProperty(ref scheduleStartTime, value, nameof(ScheduleStartTime));
-        }
-
-        TimeSpan scheduleEndTime;
-        public TimeSpan ScheduleEndTime
-        {
-            get => scheduleEndTime;
-            set => SetProperty(ref scheduleEndTime, value, nameof(ScheduleEndTime));
-        }
-
-        bool scheduleIsActive;
-        public bool ScheduleIsActive
-        {
-            get => scheduleIsActive;
-            set => SetProperty(ref scheduleIsActive, value, nameof(ScheduleIsActive));
-        }
-
         bool includeBooster;
         public bool IncludeBooster
         {
@@ -46,13 +18,9 @@ namespace PoolControllerCross.ViewModels
         }
 
         public PoolPumpViewModel(PoolSchedule schedule, PiPin pin)
-            : base(pin)
+            : base(schedule, pin)
         {
-            ScheduleIsActive = schedule.IsActive;
             IncludeBooster = schedule.IncludeBooster;
-            Schedule = schedule;
-            ScheduleStartTime = new TimeSpan(schedule.StartHour, schedule.StartMinute, 0);
-            ScheduleEndTime = new TimeSpan(schedule.EndHour, schedule.EndMinute, 0);
         }
     }
 }

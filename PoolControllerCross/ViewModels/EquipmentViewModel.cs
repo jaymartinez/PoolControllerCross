@@ -116,6 +116,7 @@ namespace PoolControllerCross.ViewModels
             if (proceed)
             {
                 pin.State = pin.State == PinState.ON ? PinState.OFF : PinState.ON; 
+                /* TEST CODE
                 var result = new PiPin()
                 {
                     DateActivated = DateTime.Now,
@@ -123,7 +124,8 @@ namespace PoolControllerCross.ViewModels
                     State = pin.State,
                     PinNumber = pin.PinNumber
                 };
-                //var result = await PoolService.Toggle(pin.PinNumber);
+                */
+                var result = await PoolService.Toggle(pin.PinNumber);
                 if (result.State == PinState.ON)
                 {
                     StartTime = new TimeSpan(result.DateActivated.Hour, result.DateActivated.Minute, 0);

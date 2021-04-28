@@ -73,7 +73,7 @@ namespace PoolControllerCross.Views
         {
             BindingContext = new PoolAndSpaViewModel()
             {
-                IsBusy = true,
+                IsBusy = true
             };
 
             var (statuses, poolSched, glSched, plSched) = await Task.Run(async () =>
@@ -97,7 +97,7 @@ namespace PoolControllerCross.Views
 
             BindingContext = new PoolAndSpaViewModel(poolModel, boosterPumpModel, heaterModel)
             {
-                IsBusy = false,
+                IsBusy = false
             };
         }
     }

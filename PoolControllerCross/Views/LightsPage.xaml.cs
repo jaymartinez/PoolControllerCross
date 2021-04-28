@@ -44,21 +44,36 @@ namespace PoolControllerCross.Views
 
         async Task Save()
         {
-            var vm = BindingContext as PoolAndSpaViewModel;
+            var vm = BindingContext as LightsPageViewModel;
             vm.IsBusy = true;
 
-            var savedSchedule = await Task.Run(async () =>
+            var savedSchedules = await Task.Run(async () =>
             {
-                return await _poolService.SetSchedule(
-                    new DateTime(vm.PoolModel.ScheduleStartTime.Ticks),
-                    new DateTime(vm.PoolModel.ScheduleEndTime.Ticks),
-                    vm.PoolModel.ScheduleIsActive,
-                    vm.PoolModel.IncludeBooster);
+                var pl = await _poolService.SetPoolLightSchedule(
+                    new DateTime(vm.PoolLightModel.ScheduleStartTime.Ticks),
+                    new DateTime(vm.PoolLightModel.ScheduleEndTime.Ticks),
+                    vm.PoolLightModel.ScheduleIsActive);
+
+                var sl = await _poolService.SetSpaLightSchedule(
+                    new DateTime(vm.SpaLightModel.ScheduleStartTime.Ticks),
+                    new DateTime(vm.SpaLightModel.ScheduleEndTime.Ticks),
+                    vm.SpaLightModel.ScheduleIsActive);
+
+                var gl = await _poolService.SetGroundLightSchedule(
+                    new DateTime(vm.GroundLightsModel.ScheduleStartTime.Ticks),
+                    new DateTime(vm.GroundLightsModel.ScheduleEndTime.Ticks),
+                    vm.GroundLightsModel.ScheduleIsActive);
+
+                return new EquipmentSchedule[] { pl, sl, gl };
             });
 
-            if (savedSchedule != null)
+            if (savedSchedules.Count() == 3)
             {
                 await _dialogService.ShowAlert("Schedule data updated", "");
+            }
+            else
+            {
+                await _dialogService.ShowAlert("One of the light schedules failed to save, try again.", "");
             }
 
             vm.IsBusy = false;
@@ -71,33 +86,32 @@ namespace PoolControllerCross.Views
 
         async Task Refresh()
         {
-            BindingContext = new PoolAndSpaViewModel()
+            BindingContext = new LightsPageViewModel()
             {
-                IsBusy = true,
+                IsBusy = true
             };
 
-            var (statuses, poolSched, glSched, plSched) = await Task.Run(async () =>
+            var (statuses, groundLightSched, poolLightSched, spaLightSched) = await Task.Run(async () =>
             {
                 var status = (await _poolService.GetAllStatuses()).ToList();
-                var sched = await _poolService.GetSchedule();
-                var groundLightSched = await _poolService.GetGroundLightSchedule();
-                var poolLightSched = await _poolService.GetPoolLightSchedule();
+                var gLSched = await _poolService.GetGroundLightSchedule();
+                var plSched = await _poolService.GetPoolLightSchedule();
+                var slSched = await _poolService.GetSpaLightSchedule();
 
-                return (status, sched, groundLightSched, poolLightSched);
+                return (status, gLSched, plSched, slSched);
             });
 
-            var pool = statuses.FirstOrDefault(_ => _.PinNumber == Pin.PoolPump);
-            var booster = statuses.FirstOrDefault(_ => _.PinNumber == Pin.BoosterPump);
-            var spaPump = statuses.FirstOrDefault(_ => _.PinNumber == Pin.SpaPump);
-            var heater = statuses.FirstOrDefault(_ => _.PinNumber == Pin.Heater);
+            var spaLight = statuses.FirstOrDefault(_ => _.PinNumber == Pin.SpaLight);
+            var groundLights = statuses.FirstOrDefault(_ => _.PinNumber == Pin.GroundLights);
+            var poolLight = statuses.FirstOrDefault(_ => _.PinNumber == Pin.PoolLight);
 
-            var poolModel = new PoolPumpViewModel(poolSched, pool);
-            var boosterPumpModel = new EquipmentViewModel(booster);
-            var heaterModel = new EquipmentViewModel(heater);
+            var spaLightViewModel = new ScheduleViewModel(spaLightSched, spaLight);
+            var groundLightViewModel = new ScheduleViewModel(groundLightSched, groundLights);
+            var poolLightViewModel = new ScheduleViewModel(poolLightSched, poolLight);
 
-            BindingContext = new PoolAndSpaViewModel(poolModel, boosterPumpModel, heaterModel)
+            BindingContext = new LightsPageViewModel(poolLightViewModel, groundLightViewModel, spaLightViewModel)
             {
-                IsBusy = false,
+                IsBusy = false
             };
         }
     }
