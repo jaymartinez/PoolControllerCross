@@ -5,7 +5,7 @@
              x:Class="PoolControllerCross.Views.PoolAndSpaPage">
   <!--Pages can be added as references or inline-->
 
-    <ContentPage Title="{Binding PoolModel.Title}">
+    <ContentPage Title="{Binding PoolModel.Title}" BackgroundColor="Black">
         <StackLayout Orientation="Vertical" Padding="10" Spacing="2">
             <ActivityIndicator x:Name="PoolPumpActivityIndicator" IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" />
             <StackLayout Orientation="Horizontal" Padding="0,4">
@@ -61,7 +61,7 @@
     </ContentPage>
 
 
-  <ContentPage Title="{Binding BoosterPumpModel.Title}">
+  <ContentPage Title="{Binding BoosterPumpModel.Title}" BackgroundColor="Black">
     <StackLayout Orientation="Vertical" Padding="10" Spacing="2">
         <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" />
         <StackLayout Orientation="Horizontal" Padding="0,4">
@@ -91,7 +91,7 @@
     </StackLayout>
   </ContentPage>
 
-    <ContentPage Title="{Binding HeaterModel.Title}">
+    <ContentPage Title="{Binding HeaterModel.Title}" BackgroundColor="Black">
         <StackLayout Orientation="Vertical" Padding="10" Spacing="2">
             <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" />
             <StackLayout Orientation="Horizontal" Padding="0,4">
@@ -120,7 +120,7 @@
         </StackLayout>
     </ContentPage>
 
-    <ContentPage Title="Spa Pump">
+    <ContentPage Title="Spa Pump" BackgroundColor="Black">
         <StackLayout Orientation="Vertical" Padding="10" Spacing="2">
             <ActivityIndicator IsRunning="{Binding IsBusy}" />
             <StackLayout Orientation="Horizontal" >

@@ -5,7 +5,7 @@
              x:Class="PoolControllerCross.Views.LightsPage">
     <!--Pages can be added as references or inline-->
 
-    <ContentPage Title="{Binding PoolLightModel.Title}">
+    <ContentPage Title="{Binding PoolLightModel.Title}" BackgroundColor="Black">
         <StackLayout Orientation="Vertical" Padding="10" Spacing="2">
             <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" />
             <StackLayout Orientation="Horizontal" Padding="0,4">
@@ -55,7 +55,7 @@
     </ContentPage>
 
 
-    <ContentPage Title="{Binding SpaLightModel.Title}">
+    <ContentPage Title="{Binding SpaLightModel.Title}" BackgroundColor="Black">
         <StackLayout Orientation="Vertical" Padding="10" Spacing="2">
             <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" />
             <StackLayout Orientation="Horizontal" Padding="0,4">
@@ -104,7 +104,7 @@
         </StackLayout>
     </ContentPage>
 
-    <ContentPage Title="{Binding GroundLightsModel.Title}">
+    <ContentPage Title="{Binding GroundLightsModel.Title}" BackgroundColor="Black">
         <StackLayout Orientation="Vertical" Padding="10" Spacing="2">
             <ActivityIndicator IsVisible="{Binding IsBusy}" IsRunning="{Binding IsBusy}" />
             <StackLayout Orientation="Horizontal" Padding="0,4">

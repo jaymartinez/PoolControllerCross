@@ -76,6 +76,12 @@ namespace PoolControllerCross.Views
                 IsBusy = true
             };
 
+            if (!await _poolService.Ping())
+            {
+                ((PoolAndSpaViewModel)BindingContext).IsBusy = false;
+                return;
+            }
+
             var (statuses, poolSched, glSched, plSched) = await Task.Run(async () =>
             {
                 var status = (await _poolService.GetAllStatuses()).ToList();

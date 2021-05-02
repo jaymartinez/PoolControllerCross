@@ -13,6 +13,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PoolControllerCross", "Pool
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "eHub.Common", "..\eHub.Common\eHub.Service\eHub.Common.csproj", "{3D2BBF2B-C931-4045-B020-56A27BEA7811}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{6BFBC718-C146-422C-BC9A-4496C64E4220}"
+	ProjectSection(SolutionItems) = preProject
+		build-fake.bat = build-fake.bat
+		build.fsx = build.fsx
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
