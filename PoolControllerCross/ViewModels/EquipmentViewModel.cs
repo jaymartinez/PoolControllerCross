@@ -29,7 +29,10 @@ namespace PoolControllerCross.ViewModels
             if (pin.State == PinState.ON)
             {
                 IsActive = true;
-                StartTime = new TimeSpan(pin.DateActivated.Hour, pin.DateActivated.Minute, 0);
+                StartTime = new TimeSpan(
+                    pin.DateActivated.ToLocalTime().Hour, 
+                    pin.DateActivated.ToLocalTime().Minute, 
+                    0);
             }
 
             OffCommand = new Command(async (piPin) => await TurnEquipmentOff(piPin));
@@ -128,7 +131,11 @@ namespace PoolControllerCross.ViewModels
                 var result = await PoolService.Toggle(pin.PinNumber);
                 if (result.State == PinState.ON)
                 {
-                    StartTime = new TimeSpan(result.DateActivated.Hour, result.DateActivated.Minute, 0);
+                    StartTime = new TimeSpan(
+                        result.DateActivated.ToLocalTime().Hour, 
+                        result.DateActivated.ToLocalTime().Minute, 
+                        0);
+
                     IsActive = true;
                 }
                 else
